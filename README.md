@@ -19,3 +19,33 @@ There're three types of notification
 ```sh
     Notify.Error( message [, autoCloseDuration ]);
 ```
+
+## Settings
+To change the settings, you need to set a options value to the property "Settings" of Notify object.
+
+**For example**
+```sh
+Notify.Settings = {
+                sounds: {
+                    success: 'sounds/success,\ warning/5.mp3',
+                    warning: 'sounds/success,\ warning/2.mp3',
+                    error: 'sounds/errors/1.mp3'
+                },
+                animDuration: {
+                    success: 8000,
+                    warning: 8000,
+                    error: 0
+                }
+            };
+```
+You can set also  one option only. In this case, the default value for sounds will not be deleted.
+```sh
+Notify.Settings = {
+                animDuration: {
+                    success: 8000,
+                    warning: 8000,
+                    error: 0
+                }
+            };
+```
+If the duration of the animation is set to 0, then this notification will not closing automatically.

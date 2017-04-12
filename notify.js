@@ -20,11 +20,6 @@ var Notify;
         },
         set: function (settings)
         {
-            if (!ValidateSettings(settings))
-            {
-                console.error('Settings not correct');
-                return;
-            }
             _settings.sounds = settings["sounds"] || _settings.sounds;
             _settings.animDuration = settings["animDuration"] || _settings.animDuration;
         }
@@ -127,11 +122,6 @@ var Notify;
 
         if (autoCloseDuration)
             setTimeout(function () { Notify.Close(notify); }, autoCloseDuration);
-    }
-
-    function ValidateSettings(settings)
-    {
-        return true;
     }
 
 })(Notify || (Notify = {}));
