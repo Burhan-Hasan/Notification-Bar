@@ -33,7 +33,7 @@ var Notify;
             if (e.propertyName != 'bottom' || parent == null) return;
             setTimeout(function ()
             {
-                var childs = parent.children.length;
+                var childs = parent.getElementsByClassName('component-notify').length;
                 if (childs === 0)
                     parent.remove();
             }, 0);
@@ -71,6 +71,17 @@ var Notify;
             container.id = 'notify-container';
             document.body.appendChild(container);
         }
+
+        var audio = document.createElement('audio'),
+                filename = '1';
+        audio.autoplay = 'autoplay';
+        audio.className = 'notify-sound';
+        audio.innerHTML = '<source src="sounds/' + filename + '.mp3" type="audio/mpeg" />' +
+                            '<source src="' + filename + '.ogg" type="audio/ogg" />' +
+                            '<embed hidden="true" autostart="true" loop="false" src="' + filename + '.mp3" />';
+
+        container.appendChild(audio);
+
         container.insertAdjacentElement("afterBegin", wrapp);
         return wrapp;
     }
@@ -78,9 +89,8 @@ var Notify;
     function Show(className, message, autoCloseDuration, notify)
     {
         message = message || "«сообщение не передано»";
-        var mainContainer = notify.closest('notify-container'),
+        var mainContainer = notify.closest('#notify-container'),
             textContainer = notify.getElementsByClassName('--text')[0];
-
         textContainer.textContent = message;
         setTimeout(function ()
         {
