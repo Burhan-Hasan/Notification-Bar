@@ -1,6 +1,44 @@
 var Notify;
 (function (Notify)
 {
+    //:::PUBLIC::://
+    function Error(message, autoCloseDuration)
+    {
+        if (autoCloseDuration === void 0) { autoCloseDuration = 0; }
+        Show('error', message, autoCloseDuration, ShowNotificationBar());
+    }
+    Notify.Error = Error;
+    function Success(message, autoCloseDuration)
+    {
+        if (autoCloseDuration === void 0) { autoCloseDuration = 4000; }
+        Show('success', message, autoCloseDuration, ShowNotificationBar());
+    }
+    Notify.Success = Success;
+    function Warning(message, autoCloseDuration)
+    {
+        if (autoCloseDuration === void 0) { autoCloseDuration = 4000; }
+        Show('warning', message, autoCloseDuration, ShowNotificationBar());
+    }
+    Notify.Warning = Warning;
+
+    function Close(notify)
+    {
+        notify.classList.remove('active');
+        notify.classList.remove('success');
+        notify.classList.remove('error');
+        notify.addEventListener('transitionend', function (e)
+        {
+            if (e.propertyName != 'bottom') return;
+            var childs = e.currentTarget.parentNode.children.length;
+            if (childs === 0)
+                e.currentTarget.parentNode.remove();
+
+            e.currentTarget.remove();
+        });
+    }
+    Notify.Close = Close;
+    //:::PRIVATE::://
+
     function ShowNotificationBar()
     {
         var wrapp = document.createElement('div');
@@ -32,48 +70,13 @@ var Notify;
         return wrapp;
     }
 
-    function Error(message, autoCloseDuration)
-    {
-        if (autoCloseDuration === void 0) { autoCloseDuration = 0; }
-        Show('error', message, autoCloseDuration, ShowNotificationBar());
-    }
-    Notify.Error = Error;
-    function Success(message, autoCloseDuration)
-    {
-        if (autoCloseDuration === void 0) { autoCloseDuration = 4000; }
-        Show('success', message, autoCloseDuration, ShowNotificationBar());
-    }
-    Notify.Success = Success;
-    function Warning(message, autoCloseDuration)
-    {
-        if (autoCloseDuration === void 0) { autoCloseDuration = 4000; }
-        Show('warning', message, autoCloseDuration, ShowNotificationBar());
-    }
-    Notify.Warning = Warning;
-    function Clear()
-    {
-        var msgBox = document.getElementById('component-notify');
-        msgBox.className = 'active';
-        msgBox.getElementsByClassName('--text')[0].textContent = '';
-    }
-    Notify.Clear = Clear;
     function Show(className, message, autoCloseDuration,notify)
     {
         message = message || "«сообщение не передано»";
-        var isMsgTxtSmall = (message.length < 100) && message.indexOf('<br') == -1,
-            msgContainer = notify.getElementsByClassName('--text')[0],
-            mainContainer = notify.closest('notify-container');
-        msgContainer.innerHTML = message;
-        if (isMsgTxtSmall)
-        {
-            msgContainer.classList.remove('big');
-            notify.classList.remove('big');
-        }
-        else
-        {
-            msgContainer.addClass('big');
-            notify.addClass('big');
-        }
+        var mainContainer = notify.closest('notify-container'),
+            textContainer = notify.getElementsByClassName('--text')[0];
+            
+        textContainer.textContent = message;
         setTimeout(function ()
         {
             notify.classList.add('active');
@@ -83,25 +86,4 @@ var Notify;
         if (autoCloseDuration)
             setTimeout(function () { Notify.Close(notify); }, autoCloseDuration);
     }
-
-    function RemoveContainerIfEmpty(container)
-    {
-        var childs = container.children.length;
-        if (childs === 0)
-            container.remove();
-    }
-
-    function Close(notify)
-    {
-        notify.classList.remove('active');
-        notify.classList.remove('success');
-        notify.classList.remove('error');
-        notify.addEventListener('transitionend', function (e)
-        {
-            if (e.propertyName != 'bottom') return;
-            RemoveContainerIfEmpty(e.currentTarget.parentNode);
-            e.currentTarget.remove();
-        });
-    }
-    Notify.Close = Close;
 })(Notify || (Notify = {}));

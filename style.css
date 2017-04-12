@@ -23,10 +23,6 @@ body {
     z-index: 999999;
 }
 
-    .component-notify.big {
-        bottom: -120px;
-    }
-
     .component-notify.active {
         bottom: 0;
     }
@@ -39,27 +35,11 @@ body {
             background-color: #339b33;
         }
 
-        .component-notify.success .big::-webkit-scrollbar-track {
-            -webkit-box-shadow: inset 0 0 6px #5CB85C;
-        }
-
-        .component-notify.success .big::-webkit-scrollbar-thumb {
-            background-color: #339b33;
-        }
-
     .component-notify.error {
         background-color: #D9534F;
     }
 
         .component-notify.error .--button-close {
-            background-color: #cf3733;
-        }
-
-        .component-notify.error .big::-webkit-scrollbar-track {
-            -webkit-box-shadow: inset 0 0 6px #D9534F;
-        }
-
-        .component-notify.error .big::-webkit-scrollbar-thumb {
             background-color: #cf3733;
         }
 
@@ -71,14 +51,6 @@ body {
             background-color: #e3a54e;
         }
 
-        .component-notify.warning .big::-webkit-scrollbar-track {
-            -webkit-box-shadow: inset 0 0 6px #F0AD4E;
-        }
-
-        .component-notify.warning .big::-webkit-scrollbar-thumb {
-            background-color: #d58e2a;
-        }
-
     .component-notify .--text {
         font-size: 18px;
         height: 60px;
@@ -88,29 +60,6 @@ body {
         text-align: center;
         color: #fff;
     }
-
-        .component-notify .--text.big {
-            height: 120px;
-            overflow-y: scroll;
-            line-height: normal;
-            font-size: 14px;
-            padding: 10px;
-            position: relative;
-            box-sizing: border-box;
-        }
-
-            .component-notify .--text.big::-webkit-scrollbar {
-                width: 8px;
-                height: 7px;
-            }
-
-            .component-notify .--text.big::-webkit-scrollbar-track {
-                border-radius: 10px;
-            }
-
-            .component-notify .--text.big::-webkit-scrollbar-thumb {
-                border-radius: 10px;
-            }
 
     .component-notify .--button-close {
         text-align: center;
