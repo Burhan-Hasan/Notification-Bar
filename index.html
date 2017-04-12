@@ -8,11 +8,14 @@
         <script>
             window.counter = 1;
         </script>
-        <button onclick="Notify.Success('Some text ' + window.counter); window.counter++;">
+        <button onclick="Notify.Success('Data successfully saved' + window.counter); window.counter++;">
             Success
         </button>
-        <button onclick="Notify.Error('Some text')">
+        <button onclick="Notify.Error('Uncaught TypeError: Cannot read property \'focus\' of null')">
             Error
+        </button>
+        <button onclick="Notify.Warning('You\'re have not access')">
+            Warning
         </button>
 	</body>
 </html>

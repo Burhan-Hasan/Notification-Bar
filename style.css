@@ -9,6 +9,7 @@ body {
     width: 100%;
     overflow: hidden;
     z-index: 999999;
+    font-family:Arial;
 }
 
 .component-notify {
@@ -29,6 +30,7 @@ body {
 
     .component-notify.success {
         background-color: #5CB85C;
+        border-bottom: 1px solid #339633;
     }
 
         .component-notify.success .--button-close {
@@ -37,6 +39,7 @@ body {
 
     .component-notify.error {
         background-color: #D9534F;
+        border-bottom: 1px solid #a52d2a;
     }
 
         .component-notify.error .--button-close {
@@ -45,6 +48,7 @@ body {
 
     .component-notify.warning {
         background-color: #d18922;
+        border-bottom: 1px solid #b6700c;
     }
 
         .component-notify.warning .--button-close {
