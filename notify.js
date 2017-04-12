@@ -103,6 +103,7 @@ var Notify;
         var audio = document.createElement('audio'),
                 soundSRC = _settings.sounds[notificationType];
         audio.autoplay = 'autoplay';
+        audio.onended = function () { this.remove(); }
         audio.className = 'notify-sound';
         audio.innerHTML = '<source src="' + soundSRC + '" type="audio/mpeg" />' +
                           '<embed hidden="true" autostart="true" loop="false" src="' + soundSRC + '" />';
