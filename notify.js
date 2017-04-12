@@ -1,7 +1,7 @@
 var Notify;
 (function (Notify)
 {
-    function CreateNotifyDOM()
+    function ShowNotificationBar()
     {
         var wrapp = document.createElement('div');
         wrapp.className = 'component-notify';
@@ -22,31 +22,33 @@ var Notify;
         wrapp.appendChild(textContent);
         wrapp.appendChild(btnClose);
 
+        var container = document.getElementById('notify-container');
+        if (!container)
+        {
+            container = document.createElement('div');
+            container.id = 'notify-container';
+            document.body.appendChild(container);
+        }
+        container.insertAdjacentElement("afterBegin", wrapp);
         return wrapp;
     }
 
     function Error(message, autoCloseDuration)
     {
         if (autoCloseDuration === void 0) { autoCloseDuration = 0; }
-        var notifyDOM = CreateNotifyDOM();
-        document.body.appendChild(notifyDOM);
-        Show('error', message, autoCloseDuration, notifyDOM);
+        Show('error', message, autoCloseDuration, ShowNotificationBar());
     }
     Notify.Error = Error;
     function Success(message, autoCloseDuration)
     {
         if (autoCloseDuration === void 0) { autoCloseDuration = 4000; }
-        var notifyDOM = CreateNotifyDOM();
-        document.body.appendChild(notifyDOM);
-        Show('success', message, autoCloseDuration, notifyDOM);
+        Show('success', message, autoCloseDuration, ShowNotificationBar());
     }
     Notify.Success = Success;
     function Warning(message, autoCloseDuration)
     {
         if (autoCloseDuration === void 0) { autoCloseDuration = 4000; }
-        var notifyDOM = CreateNotifyDOM();
-        document.body.appendChild(notifyDOM);
-        Show('warning', message, autoCloseDuration, notifyDOM);
+        Show('warning', message, autoCloseDuration, ShowNotificationBar());
     }
     Notify.Warning = Warning;
     function Clear()
@@ -60,7 +62,8 @@ var Notify;
     {
         message = message || "«сообщение не передано»";
         var isMsgTxtSmall = (message.length < 100) && message.indexOf('<br') == -1,
-            msgContainer = notify.getElementsByClassName('--text')[0];
+            msgContainer = notify.getElementsByClassName('--text')[0],
+            mainContainer = notify.closest('notify-container');
         msgContainer.innerHTML = message;
         if (isMsgTxtSmall)
         {
@@ -83,9 +86,22 @@ var Notify;
     }
     function Close(notify)
     {
+        var parent = notify.parentNode;
+        var haveAnyOtherChilds = parent.children.length;
+        if (haveAnyOtherChilds == 1)
+        {
+            setTimeout(function ()
+            {
+                parent.remove();
+            }, 0);
+        }
         notify.classList.remove('active');
         notify.classList.remove('success');
         notify.classList.remove('error');
+        notify.addEventListener('transitionend', function ()
+        {
+            notify.remove();
+        });
     }
     Notify.Close = Close;
 })(Notify || (Notify = {}));

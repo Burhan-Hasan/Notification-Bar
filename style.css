@@ -3,9 +3,18 @@ body {
     margin: 0;
 }
 
+#notify-container {
+    position: fixed;
+    bottom: 0;
+    outline: 1px solid red;
+    width: 100%;
+    overflow: hidden;
+    z-index: 999999;
+}
+
 .component-notify {
     width: 100%;
-    position: fixed;
+    position: relative;
     bottom: -60px;
     -moz-transition: all ease-in-out .4s;
     -o-transition: all ease-in-out .4s;
