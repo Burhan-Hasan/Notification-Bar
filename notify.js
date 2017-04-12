@@ -2,6 +2,7 @@ var Notify;
 (function (Notify)
 {
     var _settings = {
+        soundsOff: false,
         sounds: {
             success: 'sounds/success,\ warning/1.mp3',
             warning: 'sounds/success,\ warning/3.mp3',
@@ -22,6 +23,7 @@ var Notify;
         {
             _settings.sounds = settings["sounds"] || _settings.sounds;
             _settings.animDuration = settings["animDuration"] || _settings.animDuration;
+            _settings.soundsOff = settings["soundsOff"] != undefined ? settings["soundsOff"] : _settings.soundsOff;
         }
     });
 
@@ -94,16 +96,19 @@ var Notify;
             container.id = 'notify-container';
             document.body.appendChild(container);
         }
-
-        var audio = document.createElement('audio'),
+        if (!_settings.soundsOff)
+        {
+            var audio = document.createElement('audio'),
                 soundSRC = _settings.sounds[notificationType];
-        audio.autoplay = 'autoplay';
-        audio.onended = function () { this.remove(); }
-        audio.className = 'notify-sound';
-        audio.innerHTML = '<source src="' + soundSRC + '" type="audio/mpeg" />' +
-                          '<embed hidden="true" autostart="true" loop="false" src="' + soundSRC + '" />';
+            audio.autoplay = 'autoplay';
+            audio.onended = function () { this.remove(); }
+            audio.className = 'notify-sound';
+            audio.innerHTML = '<source src="' + soundSRC + '" type="audio/mpeg" />' +
+                              '<embed hidden="true" autostart="true" loop="false" src="' + soundSRC + '" />';
 
-        container.appendChild(audio);
+            container.appendChild(audio);
+        }
+
         container.insertAdjacentElement("afterBegin", wrapp);
         return wrapp;
     }
