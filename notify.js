@@ -12,10 +12,9 @@ var Notify;
         btnClose.className = '--button-close';
         btnClose.addEventListener('click', function (e)
         {
+            e.stopPropagation();
             var component = e.target.closest('.component-notify');
-            component.classList.remove('active');
-            component.classList.remove('success');
-            component.classList.remove('error');
+            Close(component);
         })
         btnClose.innerHTML = '<span>&#10006;</span>';
 
@@ -84,23 +83,24 @@ var Notify;
         if (autoCloseDuration)
             setTimeout(function () { Notify.Close(notify); }, autoCloseDuration);
     }
+
+    function RemoveContainerIfEmpty(container)
+    {
+        var childs = container.children.length;
+        if (childs === 0)
+            container.remove();
+    }
+
     function Close(notify)
     {
-        var parent = notify.parentNode;
-        var haveAnyOtherChilds = parent.children.length;
-        if (haveAnyOtherChilds == 1)
-        {
-            setTimeout(function ()
-            {
-                parent.remove();
-            }, 0);
-        }
         notify.classList.remove('active');
         notify.classList.remove('success');
         notify.classList.remove('error');
-        notify.addEventListener('transitionend', function ()
+        notify.addEventListener('transitionend', function (e)
         {
-            notify.remove();
+            if (e.propertyName != 'bottom') return;
+            RemoveContainerIfEmpty(e.currentTarget.parentNode);
+            e.currentTarget.remove();
         });
     }
     Notify.Close = Close;

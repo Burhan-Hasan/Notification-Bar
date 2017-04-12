@@ -5,21 +5,14 @@
         <link href="style.css" rel="stylesheet" />
 	</head>
 	<body>
-        <button onclick="Notify.Success('Some text')">
+        <script>
+            window.counter = 1;
+        </script>
+        <button onclick="Notify.Success('Some text ' + window.counter); window.counter++;">
             Success
         </button>
         <button onclick="Notify.Error('Some text')">
             Error
         </button>
-        <!--<div id="component-notify" class="success">
-            <div class="--text">
-                Tincidunt integer eu augue augue nunc elit dolor, luctus placerat scelerisque euismod, iaculis eu lacus nunc mi elit, vehicula ut laoreet ac, aliquam sit amet justo nunc tempor, metus vel.
-            </div>
-            <div class="--button-close" onclick="Notify.Close()">
-                <span>
-                    &#10006;
-                </span>
-            </div>
-        </div>-->
 	</body>
 </html>
