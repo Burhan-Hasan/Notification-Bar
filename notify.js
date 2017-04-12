@@ -1,6 +1,7 @@
 var Notify;
 (function (Notify)
 {
+    var _autoCloseDuration = 4000;
     //:::PUBLIC::://
     function Error(message, autoCloseDuration)
     {
@@ -10,13 +11,13 @@ var Notify;
     Notify.Error = Error;
     function Success(message, autoCloseDuration)
     {
-        if (autoCloseDuration === void 0) { autoCloseDuration = 4000; }
+        if (autoCloseDuration === void 0) { autoCloseDuration = _autoCloseDuration; }
         Show('success', message, autoCloseDuration, ShowNotificationBar());
     }
     Notify.Success = Success;
     function Warning(message, autoCloseDuration)
     {
-        if (autoCloseDuration === void 0) { autoCloseDuration = 4000; }
+        if (autoCloseDuration === void 0) { autoCloseDuration = _autoCloseDuration; }
         Show('warning', message, autoCloseDuration, ShowNotificationBar());
     }
     Notify.Warning = Warning;
@@ -28,10 +29,14 @@ var Notify;
         notify.classList.remove('error');
         notify.addEventListener('transitionend', function (e)
         {
-            if (e.propertyName != 'bottom') return;
-            var childs = e.currentTarget.parentNode.children.length;
-            if (childs === 0)
-                e.currentTarget.parentNode.remove();
+            var parent = e.currentTarget.parentNode;
+            if (e.propertyName != 'bottom' || parent == null) return;
+            setTimeout(function ()
+            {
+                var childs = parent.children.length;
+                if (childs === 0)
+                    parent.remove();
+            }, 0);
 
             e.currentTarget.remove();
         });
@@ -70,19 +75,19 @@ var Notify;
         return wrapp;
     }
 
-    function Show(className, message, autoCloseDuration,notify)
+    function Show(className, message, autoCloseDuration, notify)
     {
         message = message || "«сообщение не передано»";
         var mainContainer = notify.closest('notify-container'),
             textContainer = notify.getElementsByClassName('--text')[0];
-            
+
         textContainer.textContent = message;
         setTimeout(function ()
         {
             notify.classList.add('active');
             notify.classList.add(className);
-        },0)
-        
+        }, 0)
+
         if (autoCloseDuration)
             setTimeout(function () { Notify.Close(notify); }, autoCloseDuration);
     }
