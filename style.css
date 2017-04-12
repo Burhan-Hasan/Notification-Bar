@@ -6,7 +6,6 @@ body {
 #notify-container {
     position: fixed;
     bottom: 0;
-    outline: 1px solid red;
     width: 100%;
     overflow: hidden;
     z-index: 999999;
