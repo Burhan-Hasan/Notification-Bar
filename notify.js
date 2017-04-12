@@ -1,57 +1,91 @@
 var Notify;
 (function (Notify)
 {
+    function CreateNotifyDOM()
+    {
+        var wrapp = document.createElement('div');
+        wrapp.className = 'component-notify';
+
+        var textContent = document.createElement('div');
+        textContent.className = '--text';
+        var btnClose = document.createElement('div');
+        btnClose.className = '--button-close';
+        btnClose.addEventListener('click', function (e)
+        {
+            var component = e.target.closest('.component-notify');
+            component.classList.remove('active');
+            component.classList.remove('success');
+            component.classList.remove('error');
+        })
+        btnClose.innerHTML = '<span>&#10006;</span>';
+
+        wrapp.appendChild(textContent);
+        wrapp.appendChild(btnClose);
+
+        return wrapp;
+    }
+
     function Error(message, autoCloseDuration)
     {
         if (autoCloseDuration === void 0) { autoCloseDuration = 0; }
-        Show('error', message, autoCloseDuration);
+        var notifyDOM = CreateNotifyDOM();
+        document.body.appendChild(notifyDOM);
+        Show('error', message, autoCloseDuration, notifyDOM);
     }
     Notify.Error = Error;
     function Success(message, autoCloseDuration)
     {
         if (autoCloseDuration === void 0) { autoCloseDuration = 4000; }
-        Show('success', message, autoCloseDuration);
+        var notifyDOM = CreateNotifyDOM();
+        document.body.appendChild(notifyDOM);
+        Show('success', message, autoCloseDuration, notifyDOM);
     }
     Notify.Success = Success;
     function Warning(message, autoCloseDuration)
     {
         if (autoCloseDuration === void 0) { autoCloseDuration = 4000; }
-        Show('warning', message, autoCloseDuration);
+        var notifyDOM = CreateNotifyDOM();
+        document.body.appendChild(notifyDOM);
+        Show('warning', message, autoCloseDuration, notifyDOM);
     }
     Notify.Warning = Warning;
     function Clear()
     {
-        var msgBox = document.getElementById('message-box');
+        var msgBox = document.getElementById('component-notify');
         msgBox.className = 'active';
-        msgBox.getElementsByClassName('msg')[0].textContent = '';
+        msgBox.getElementsByClassName('--text')[0].textContent = '';
     }
     Notify.Clear = Clear;
-    function Show(className, message, autoCloseDuration)
+    function Show(className, message, autoCloseDuration,notify)
     {
         message = message || "«сообщение не передано»";
-        var msgBox = document.getElementById('message-box'),
-            isMsgTxtSmall = (message.length < 100) && message.indexOf('<br') == -1,
-            msgContainer = msgBox.getElementsByClassName('msg')[0];
+        var isMsgTxtSmall = (message.length < 100) && message.indexOf('<br') == -1,
+            msgContainer = notify.getElementsByClassName('--text')[0];
         msgContainer.innerHTML = message;
         if (isMsgTxtSmall)
         {
             msgContainer.classList.remove('big');
-            msgBox.classList.remove('big');
+            notify.classList.remove('big');
         }
         else
         {
             msgContainer.addClass('big');
-            msgBox.addClass('big');
+            notify.addClass('big');
         }
-        msgBox.className = 'active';
-        msgBox.classList.add(className);
+        setTimeout(function ()
+        {
+            notify.classList.add('active');
+            notify.classList.add(className);
+        },0)
+        
         if (autoCloseDuration)
-            setTimeout(function () { Notify.Close(msgBox); }, autoCloseDuration);
+            setTimeout(function () { Notify.Close(notify); }, autoCloseDuration);
     }
-    function Close(msgBox)
+    function Close(notify)
     {
-        msgBox = msgBox || document.getElementById('message-box');
-        msgBox.className = '';
+        notify.classList.remove('active');
+        notify.classList.remove('success');
+        notify.classList.remove('error');
     }
     Notify.Close = Close;
 })(Notify || (Notify = {}));
