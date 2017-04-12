@@ -1,24 +1,52 @@
 var Notify;
 (function (Notify)
 {
-    var _autoCloseDuration = 4000;
+    var _settings = {
+        sounds: {
+            success: 'sounds/success,\ warning/1.mp3',
+            warning: 'sounds/success,\ warning/3.mp3',
+            error: 'sounds/errors/1.mp3'
+        },
+        animDuration: {
+            success: 4000,
+            warning: 4000,
+            error: 4000
+        }
+    };
+    Object.defineProperty(Notify, 'Settings', {
+        get: function ()
+        {
+            return _settings;
+        },
+        set: function (settings)
+        {
+            if (!ValidateSettings(settings))
+            {
+                console.error('Settings not correct');
+                return;
+            }
+            _settings.sounds = settings["sounds"] || _settings.sounds;
+            _settings.animDuration = settings["animDuration"] || _settings.animDuration;
+        }
+    });
+
     //:::PUBLIC::://
     function Error(message, autoCloseDuration)
     {
-        if (autoCloseDuration === void 0) { autoCloseDuration = 0; }
-        Show('error', message, autoCloseDuration, ShowNotificationBar());
+        if (autoCloseDuration === void 0) { autoCloseDuration = _settings.animDuration.error; }
+        Show('error', message, autoCloseDuration, ShowNotificationBar('error'));
     }
     Notify.Error = Error;
     function Success(message, autoCloseDuration)
     {
-        if (autoCloseDuration === void 0) { autoCloseDuration = _autoCloseDuration; }
-        Show('success', message, autoCloseDuration, ShowNotificationBar());
+        if (autoCloseDuration === void 0) { autoCloseDuration = _settings.animDuration.success; }
+        Show('success', message, autoCloseDuration, ShowNotificationBar('success'));
     }
     Notify.Success = Success;
     function Warning(message, autoCloseDuration)
     {
-        if (autoCloseDuration === void 0) { autoCloseDuration = _autoCloseDuration; }
-        Show('warning', message, autoCloseDuration, ShowNotificationBar());
+        if (autoCloseDuration === void 0) { autoCloseDuration = _settings.animDuration.warning; }
+        Show('warning', message, autoCloseDuration, ShowNotificationBar('warning'));
     }
     Notify.Warning = Warning;
 
@@ -44,7 +72,7 @@ var Notify;
     Notify.Close = Close;
     //:::PRIVATE::://
 
-    function ShowNotificationBar()
+    function ShowNotificationBar(notificationType)
     {
         var wrapp = document.createElement('div');
         wrapp.className = 'component-notify';
@@ -73,15 +101,13 @@ var Notify;
         }
 
         var audio = document.createElement('audio'),
-                filename = '1';
+                soundSRC = _settings.sounds[notificationType];
         audio.autoplay = 'autoplay';
         audio.className = 'notify-sound';
-        audio.innerHTML = '<source src="sounds/' + filename + '.mp3" type="audio/mpeg" />' +
-                            '<source src="' + filename + '.ogg" type="audio/ogg" />' +
-                            '<embed hidden="true" autostart="true" loop="false" src="' + filename + '.mp3" />';
+        audio.innerHTML = '<source src="' + soundSRC + '" type="audio/mpeg" />' +
+                          '<embed hidden="true" autostart="true" loop="false" src="' + soundSRC + '" />';
 
         container.appendChild(audio);
-
         container.insertAdjacentElement("afterBegin", wrapp);
         return wrapp;
     }
@@ -101,4 +127,10 @@ var Notify;
         if (autoCloseDuration)
             setTimeout(function () { Notify.Close(notify); }, autoCloseDuration);
     }
+
+    function ValidateSettings(settings)
+    {
+        return true;
+    }
+
 })(Notify || (Notify = {}));
