@@ -3,11 +3,19 @@ body {
     margin: 0;
 }
 
-#message-box {
-    width: 100%;
+#notify-container {
     position: fixed;
-    bottom: -60px;
     bottom: 0;
+    outline: 1px solid red;
+    width: 100%;
+    overflow: hidden;
+    z-index: 999999;
+}
+
+.component-notify {
+    width: 100%;
+    position: relative;
+    bottom: -60px;
     -moz-transition: all ease-in-out .4s;
     -o-transition: all ease-in-out .4s;
     -webkit-transition: all ease-in-out .4s;
@@ -16,63 +24,63 @@ body {
     z-index: 999999;
 }
 
-    #message-box.big {
+    .component-notify.big {
         bottom: -120px;
     }
 
-    #message-box.active {
+    .component-notify.active {
         bottom: 0;
     }
 
-    #message-box.success {
+    .component-notify.success {
         background-color: #5CB85C;
     }
 
-        #message-box.success .close {
+        .component-notify.success .--button-close {
             background-color: #339b33;
         }
 
-        #message-box.success .big::-webkit-scrollbar-track {
+        .component-notify.success .big::-webkit-scrollbar-track {
             -webkit-box-shadow: inset 0 0 6px #5CB85C;
         }
 
-        #message-box.success .big::-webkit-scrollbar-thumb {
+        .component-notify.success .big::-webkit-scrollbar-thumb {
             background-color: #339b33;
         }
 
-    #message-box.error {
+    .component-notify.error {
         background-color: #D9534F;
     }
 
-        #message-box.error .close {
+        .component-notify.error .--button-close {
             background-color: #cf3733;
         }
 
-        #message-box.error .big::-webkit-scrollbar-track {
+        .component-notify.error .big::-webkit-scrollbar-track {
             -webkit-box-shadow: inset 0 0 6px #D9534F;
         }
 
-        #message-box.error .big::-webkit-scrollbar-thumb {
+        .component-notify.error .big::-webkit-scrollbar-thumb {
             background-color: #cf3733;
         }
 
-    #message-box.warning {
+    .component-notify.warning {
         background-color: #d18922;
     }
 
-        #message-box.warning .close {
+        .component-notify.warning .--button-close {
             background-color: #e3a54e;
         }
 
-        #message-box.warning .big::-webkit-scrollbar-track {
+        .component-notify.warning .big::-webkit-scrollbar-track {
             -webkit-box-shadow: inset 0 0 6px #F0AD4E;
         }
 
-        #message-box.warning .big::-webkit-scrollbar-thumb {
+        .component-notify.warning .big::-webkit-scrollbar-thumb {
             background-color: #d58e2a;
         }
 
-    #message-box .msg {
+    .component-notify .--text {
         font-size: 18px;
         height: 60px;
         margin: 0 auto;
@@ -82,7 +90,7 @@ body {
         color: #fff;
     }
 
-        #message-box .msg.big {
+        .component-notify .--text.big {
             height: 120px;
             overflow-y: scroll;
             line-height: normal;
@@ -92,20 +100,20 @@ body {
             box-sizing: border-box;
         }
 
-            #message-box .msg.big::-webkit-scrollbar {
+            .component-notify .--text.big::-webkit-scrollbar {
                 width: 8px;
                 height: 7px;
             }
 
-            #message-box .msg.big::-webkit-scrollbar-track {
+            .component-notify .--text.big::-webkit-scrollbar-track {
                 border-radius: 10px;
             }
 
-            #message-box .msg.big::-webkit-scrollbar-thumb {
+            .component-notify .--text.big::-webkit-scrollbar-thumb {
                 border-radius: 10px;
             }
 
-    #message-box .close {
+    .component-notify .--button-close {
         text-align: center;
         line-height: 40px;
         -moz-transform: rotate(-45deg);
@@ -121,7 +129,7 @@ body {
         cursor: pointer;
     }
 
-        #message-box .close span {
+        .component-notify .--button-close span {
             -moz-transform: rotate(45deg);
             -ms-transform: rotate(45deg);
             -o-transform: rotate(45deg);
