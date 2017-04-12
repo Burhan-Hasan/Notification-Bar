@@ -49,3 +49,15 @@ Notify.Settings = {
             };
 ```
 If the duration of the animation is set to 0, then this notification will not closing automatically.
+
+If you want to turn off the sounds then set to the property soundsOff to true
+```sh
+Notify.Settings = {
+                soundsOff: false,
+                animDuration: {
+                    success: 8000,
+                    warning: 8000,
+                    error: 8000
+                }
+            };
+```
