@@ -1,7 +1,10 @@
 ### Notification Bar
 [VIEW DEMO](https://burhan-hasan.github.io/Notification-Bar/)
 
-<img style="width:80%;max-width:650px;display:block;margin:0 auto" src="https://cloud.githubusercontent.com/assets/6553878/26123583/74a1f3aa-3a8c-11e7-9324-0ce7bc860418.png">
+
+![image](https://cloud.githubusercontent.com/assets/6553878/26123583/74a1f3aa-3a8c-11e7-9324-0ce7bc860418.png)
+
+>>>>>>> 742711f6cc9b5dfd1e4cf68d31a17184592b9400
 
 ## Useage
 
