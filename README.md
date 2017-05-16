@@ -1,6 +1,6 @@
 ### Notification Bar
 
-![image](https://cloud.githubusercontent.com/assets/6553878/24967075/f9295084-1fb9-11e7-9179-cd78118209db.png)
+![image](https://cloud.githubusercontent.com/assets/6553878/26123583/74a1f3aa-3a8c-11e7-9324-0ce7bc860418.png)
 
 
 ## Useage
