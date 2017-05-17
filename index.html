@@ -1,28 +1,72 @@
 <html>
-	<head>
-		<title>Notification Bar</title>
-        <script src="notify.js"></script>
-        <link href="style.css" rel="stylesheet" />
-	</head>
-	<body>
-        <button onclick="Notify.Success('The request is OK!');">
-            Success
-        </button>
-        <button onclick="Notify.Error(' Incorrect password or confirmation code entered. Please try again.!')">
-            Error
-        </button>
-        <button onclick="Notify.Warning('Some required information is missing or incomplete. Please correct your entries and try again.')">
-            Warning
-        </button>
-        <script>
-            Notify.Settings = {
-                soundsOff: false,
-                animDuration: {
-                    success: 8000,
-                    warning: 8000,
-                    error: 8000
-                }
-            };
-        </script>
-	</body>
+
+<head>
+    <title>Notification Bar</title>
+    <script src="notify.js"></script>
+    <link href="style.css" rel="stylesheet" />
+    <style>
+        #buttons {
+            padding: 0;
+            margin: 0;
+            display: block;
+            position: relative;
+            margin: 10px auto;
+            list-style: none;
+            text-align: center;            
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        #buttons::after{
+            content: '';
+            position: relative;
+            clear: both;
+            display: block;
+        }
+        #buttons li {
+            padding: 0;
+            margin: 0;
+            text-align: center;
+            display: inline-block;
+            cursor: pointer;
+            color: #fff;
+            padding: 5px 15px;
+        }
+        
+        #btn-success {
+            background-color: #5CB85C;
+            border: 1px solid #339633;
+            box-sizing: border-box;
+        }
+
+        #btn-error {
+            background-color: #D9534F;
+            border: 1px solid #a52d2a;
+            box-sizing: border-box;
+        }
+
+        #btn-warning {
+            background-color: #d18922;
+            border: 1px solid #b6700c;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+
+<body>
+    <ul id="buttons">
+        <li id="btn-success" onclick="Notify.Success('The request is OK!');">Success</li>
+        <li id="btn-error" onclick="Notify.Error(' Incorrect password or confirmation code entered. Please try again.!')">Error</li>
+        <li id="btn-warning" onclick="Notify.Warning('Some required information is missing or incomplete. Please correct your entries and try again.')">Warning</li>
+    </ul>
+    <script>
+        Notify.Settings = {
+            soundsOff: false,
+            animDuration: {
+                success: 8000,
+                warning: 8000,
+                error: 8000
+            }
+        };
+    </script>
+</body>
+
 </html>
