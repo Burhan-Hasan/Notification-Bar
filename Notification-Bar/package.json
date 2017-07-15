@@ -1,6 +1,6 @@
 {
-  "name": "notification bar",
-  "version": "1.0.1",
+  "name": "notification-bar",
+  "version": "1.0.2",
   "description": "Simple Notification-Bar in Vanilla.js (plain js) for client side.",
   "main": "notify.js",
   "scripts": {
