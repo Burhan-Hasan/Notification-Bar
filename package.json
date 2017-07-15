@@ -1,0 +1,23 @@
+{
+  "name": "notification-bar",
+  "version": "1.0.1",
+  "description": "Simple Notification-Bar in Vanilla.js (plain js) for client side.",
+  "main": "notify.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Burhan-Hasan/Notification-Bar.git"
+  },
+  "keywords": [
+    "Notification",
+    "Bar"
+  ],
+  "author": "Burhan Hasan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Burhan-Hasan/Notification-Bar/issues"
+  },
+  "homepage": "https://github.com/Burhan-Hasan/Notification-Bar#readme"
+}
