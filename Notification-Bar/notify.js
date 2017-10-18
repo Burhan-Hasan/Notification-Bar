@@ -96,7 +96,7 @@ var Notify;
             container.id = 'notify-container';
             document.body.appendChild(container);
         }
-        if (!_settings.soundsOff)
+        if (_settings.soundsOff)
         {
             var audio = document.createElement('audio'),
                 soundSRC = _settings.sounds[notificationType];
